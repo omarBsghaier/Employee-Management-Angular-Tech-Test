@@ -1,0 +1,67 @@
+<div class="modal fade show" tabindex="-1" role="dialog"  style="display: block; background-color: rgba(0, 0, 0, 0.5);">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Employee Form</h5>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="employeeForm" (ngSubmit)="addEmployee()" class="awesome-form">
+
+          <div class="form-group mb-3">
+            <label for="firstName">First Name <span style="color: red;">*</span>: </label>
+            <input id="firstName" type="text" class="form-control mt-2" formControlName="firstName" >
+            <small class="text-danger" *ngIf="employeeForm.get('firstName')?.touched && employeeForm.get('firstName')?.hasError('required')">First name is required.</small>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="lastName">Last Name <span style="color: red;">*</span>: </label>
+            <input id="lastName" type="text" class="form-control mt-2" formControlName="lastName"  >
+            <small class="text-danger" *ngIf="employeeForm.get('lastName')?.touched && employeeForm.get('lastName')?.hasError('required')">Last name is required.</small>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="email">Email <span style="color: red;">*</span>: </label>
+            <input id="email" type="email" class="form-control mt-2 "  formControlName="email"  >
+            <small class="text-danger" *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.hasError('required')">Email is required.</small>
+            <small class="text-danger" *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.hasError('email')">Please enter a valid email.</small>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="age">Age <span style="color: red;">*</span>: </label>
+            <input id="age" type="number" class="form-control mt-2 " formControlName="age"  >
+            <small class="text-danger" *ngIf="employeeForm.get('age')?.touched && employeeForm.get('age')?.hasError('required')">Age is required.</small>
+            <small class="text-danger" *ngIf="employeeForm.get('age')?.touched && employeeForm.get('age')?.hasError('min')">Must be at least 18 years old.</small>
+            <small class="text-danger" *ngIf="employeeForm.get('age')?.touched && employeeForm.get('age')?.hasError('max')">Must be at most 65 years old.</small>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="salary">Salary</label>
+            <input id="salary" type="number" class="form-control mt-2 " formControlName="salary"  >
+            <small class="text-danger" *ngIf="employeeForm.get('salary')?.touched && employeeForm.get('salary')?.hasError('required')">Salary is required.</small>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="address">Address</label>
+            <input id="address" type="text" class="form-control mt-2" formControlName="address"  >
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="contactNumber">Contact Number</label>
+            <input id="contactNumber" type="tel" class="form-control mt-2 " formControlName="contactNumber"  >
+            <small class="text-danger" *ngIf="employeeForm.get('contactNumber')?.touched && employeeForm.get('contactNumber')?.hasError('pattern')">Contact number must be 8 digits.</small>
+          </div>
+
+          <div class="form-group mb-3 text-end ">
+            <button type="button" class="btn btn-success me-2" (click)="onCancel()">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Add</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<span *ngIf="showSuccessAlert" class="alert alert-success alert-right" role="alert">-->
+<!--  emplyee add succces   !-->
+<!--</span>-->

@@ -1,0 +1,76 @@
+<div class="container mt-5">
+  <span *ngIf="showSuccessAlert" class="alert alert-success fade show col-md-3 position-absolute top-0 end-0 mt-1 me-3" role="alert">
+    Employee added successfully!
+  </span>
+  <h1 class="title">
+    Employees of <span style="color: #28a745;">Datahorizon</span>
+  </h1>
+  <app-employee-form  *ngIf="showEmployeeForm" (employeeAdded)="onEmployeeAdded($event)" (cancel)="hideForm()" ></app-employee-form>
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Search employees..." class="form-control me-2" style="width: 200px;"/>
+      <button class="btn btn-success btn-sm" (click)="showEmployeeForm = true">
+        <i class="fa-regular fa-plus"></i> Add Employee
+      </button>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col" (click)="sortColumn('id')" style="cursor: pointer;">ID
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </th>
+          <th scope="col" (click)="sortColumn('firstName')" style="cursor: pointer;">First Name
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </th>
+          <th scope="col" (click)="sortColumn('lastName')" style="cursor: pointer;">Last Name
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </th>
+          <th scope="col" (click)="sortColumn('age')" style="cursor: pointer;">Age
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </th>
+          <th scope="col" (click)="sortColumn('address')" style="cursor: pointer;">Address
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </th>
+          <th scope="col" (click)="sortColumn('contactNumber')" style="cursor: pointer;">Contact Number
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </th>
+          <th scope="col" (click)="sortColumn('email')" style="cursor: pointer;">Email
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </th>
+          <th scope="col" (click)="sortColumn('salary')" style="cursor: pointer;">Salary
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let emp of employees | filter : searchTerm  | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+          <th scope="row">{{ emp.id }}</th>
+          <td>{{ emp.firstName }}</td>
+          <td>{{ emp.lastName }}</td>
+          <td>{{ emp.age }}</td>
+          <td>{{ emp.address }}</td>
+          <td>{{ emp.contactNumber }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.salary }}</td>
+          <td class="center-content">
+            <button class="btn btn-danger" (click)="deleteEmployee(emp.id)">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="container mb-4 d-flex justify-content-between align-items-center">
+        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        <div class="d-flex align-items-center">
+          <label for="itemsPerPage" class="me-2">Items per page:</label>
+          <select id="itemsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage(itemsPerPage)">
+            <option *ngFor="let count of [5, 10, 15, 20]" [value]="count">{{ count }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
